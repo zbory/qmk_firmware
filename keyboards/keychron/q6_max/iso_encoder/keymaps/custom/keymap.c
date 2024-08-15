@@ -16,12 +16,18 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "send_string.h"
 
 enum layers {
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
     WIN_FN,
+};
+
+enum macro_keycodes {
+    MAC_HOME = NEW_SAFE_RANGE,
+    MAC_END
 };
 
 // clang-format off
@@ -69,8 +75,27 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif // ENCODER_MAP_ENABLE
 
+bool process_record_custom_macros(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case MAC_HOME:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("a"));
+        break;
+        }
+    case MAC_END:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("e"));
+        break;
+        }
+    };
+    return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron_common(keycode, record)) {
+        return false;
+    }
+    if (!process_record_custom_macros(keycode, record)) {
         return false;
     }
     return true;
