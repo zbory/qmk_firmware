@@ -60,7 +60,8 @@
             "solid_reactive_simple": true,
             "solid_splash": true,
             "splash": true,
-            "typing_heatmap": true
+            "typing_heatmap": true,
+            "solid_color_reactive_complement": true
         },
         "default": {
             "animation": "solid_reactive_multiwide",
