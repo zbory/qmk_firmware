@@ -61,7 +61,8 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true,
-            "solid_color_reactive_complement": true
+            "solid_color_reactive_complement": true,
+            "snake_game": true
         },
         "default": {
             "animation": "solid_reactive_multiwide",
