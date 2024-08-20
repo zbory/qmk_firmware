@@ -219,6 +219,19 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
         }
     }
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
+
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_SNAKE_GAME)
+#    if defined(RGB_MATRIX_KEYRELEASES)
+    if (!pressed)
+#    else
+    if (pressed)
+#    endif // defined(RGB_MATRIX_KEYRELEASES)
+    {
+        if (rgb_matrix_config.mode == RGB_MATRIX_CUSTOM_SNAKE_GAME) {
+            set_input_snake_game(row, col);
+        }
+    }
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_SNAKE_GAME)
 }
 
 void rgb_matrix_test(void) {
