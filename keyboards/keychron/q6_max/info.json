@@ -61,7 +61,13 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true
-        }
+        },
+        "default": {
+            "animation": "solid_reactive_multiwide",
+            "hue": 196
+        },
+        "hue_steps": 4,
+        "speed_steps": 8
     },
     "eeprom": {
         "wear_leveling": {
