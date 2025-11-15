@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "sendstring_hungarian.h"
 
 enum macro_keycodes {
     BUILD_ITF = NEW_SAFE_RANGE,
@@ -26,7 +27,8 @@ enum macro_keycodes {
     GIT_POP,
     GIT_STATUS,
     GIT_FORCE_PUSH,
-    MIC_TOG
+    MIC_TOG,
+    FPRINTF
 };
 
 enum layers {
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_FN] = LAYOUT_109_iso(
         _______,              KC_BRID,     KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_F7,    KC_F8,    KC_F9,    KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  RGB_TOG,  _______, _______, _______, _______,
         _______,  BT_HST1,    BT_HST2,     BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, _______, _______, RGB_MOD,
-        _______,  GIT_STASH,  GIT_POP,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  RGB_HUD, RGB_HUI, _______,
+        _______,  GIT_STASH,  GIT_POP,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  FPRINTF,  _______,  _______,            _______,  _______,  _______,  RGB_HUD, RGB_HUI, _______,
         _______,  _______,    GIT_STATUS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                                RGB_SPD, RGB_SPI, _______, RGB_RMOD,
         _______,  _______,    _______,     _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,            _______,            _______,            _______, _______, _______,
         _______,  _______,    _______,                                   GIT_FORCE_PUSH,                         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______, _______),
@@ -142,6 +144,11 @@ bool process_record_custom_macros(uint16_t keycode, keyrecord_t *record) {
     case MIC_TOG:       // Win11 taskbar Teams mute toggle
         if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_LWIN("k")));
+        }
+        return false;
+    case FPRINTF:
+        if (record->event.pressed) {
+                SEND_STRING("fprintf(stderr, \"_____ \\n\");");
         }
         return false;
     };
